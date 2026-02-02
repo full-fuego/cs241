@@ -7,20 +7,22 @@
 section .data
 
 msg: db "Hello, world!", 10 ; Msg. to print
-msg2: db 72,101,33,10 		; Msg2 using ASCII characters
-
-
+;;; msg2: db 72,101,33,10 		; Msg2 using ASCII characters
 MSGLEN:	equ	14 ; Make label equal thirteen
 
 section	.text
 
-start:
+_start:
 	mov	rax, 1 ; rax = 1
 	mov	rdi, 1 ; rdi = 1
 	mov	rsi, msg ; rsi = msg
 	mov	rdx, MSGLEN ; rdx = MSGLEN = 14
 	syscall
-	
+
+
+	mov rax, 60
+	mov rdi, 0
+	syscall
 
 ;;; Sections
 ;;; .data 	- Global read/write data (non-executable) data has to be loaded into the program
@@ -41,3 +43,9 @@ start:
 ;;;		rax, rbx, rcx, rdx, rdi, rsi, rbp, rsp, r8 - r15
 
 ;;; Syscall request for the OS to do something
+
+
+;;; rax - Syscall Code ("What are we asking the OS to do")
+;;; rdi - 1st argument ("Where to print to?:)
+;;;	rsi - 2nd arg. ( addr. of what to print)
+;;; rdx - 3rd arg (num of bytes to prints)
